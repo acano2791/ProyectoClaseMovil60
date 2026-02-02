@@ -13,6 +13,11 @@ alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mens
     alert("Alerta logout desde app"); /*muestra una alerta en el telefono con el mensaje que esta entre "" */
   }
 
+  const handleForgotPassword = () => {
+    console.log("Prueba desde app ForgotPassword")
+    alert("Olvidé mi contraseña");
+  }
+
   return (  /*Render (lo que se muestra en la pantalla) */
     <View style={styles.container}> 
       <View style={styles.card}>  
@@ -25,7 +30,11 @@ alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mens
         <CustomButton 
           title={'Salir'} 
          onClick={handleOnLogout}
-          variant={'secondary'}/>
+          variant={'secondary'}/>        
+        <CustomButton 
+        title={'¿Olvidaste tu contraseña?'} 
+        onClick={handleForgotPassword}
+        variant={'tertiary'}/>
         </View>
       </View>
     </View>
@@ -45,9 +54,9 @@ const styles = StyleSheet.create({  /*Crea un objeto de estilos optimizados */
     backgroundColor: '#f3f4f6', /* color gris claro */
   },
   buttonsWrapper:{ /* Zona donde van los botoness */
-    backgroundColor: 'green', /* Color del fondo donde van los botones */
-    marginTop: 15, /* Separacion de arriba */
-    height: "30%", /* Ocupa el 30% del alto de la tarjeta */
+    backgroundColor: 'white', /* Color del fondo donde van los botones */
+    marginTop: 30, /* Separacion de arriba */
+    height: "40%", /* Ocupa el 30% del alto de la tarjeta */
     alignItems: "center", /* centra los botones orizontalmente */
     justifyContent : "center"
     /*alignContent: "space-around",  consultar al inge cual usar si justifContent o alingnContent */

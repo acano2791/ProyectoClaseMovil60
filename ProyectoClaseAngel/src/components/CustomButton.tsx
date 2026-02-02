@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native"; /* Ipor
 interface CustomButtonProps {  /*Define que propiedades acepta el componente */
     title: string; /* Obligatorio texto del boton */
     onClick:()=> void; /* Obligatorio funcion sin parametros que no retorna nada */
-    variant?: "primary" | "secondary"; /*se le agregaga ? para indicar que la variant no es una variable obligatoria e indica que solo puede ser primaria o secundaria*/
+    variant?: "primary" | "secondary" | "tertiary"; /*se le agregaga ? para indicar que la variant no es una variable obligatoria e indica que solo puede ser primaria o secundaria*/
 }
 export default function CustomButton ({ /* Componente CustomButton */
     title,
@@ -15,7 +15,8 @@ export default function CustomButton ({ /* Componente CustomButton */
     return(       /* Render del boton */
         <TouchableOpacity 
         onPress={onClick}  /* onPress={onClick}: cuando lo presionas, ejecuta la función que mandó el padre. */
-        style={styles.container}> 
+        style={styles.container}
+        activeOpacity={0.7}> 
             <Text
                 style={styles.text}>
                 {title}
@@ -24,22 +25,22 @@ export default function CustomButton ({ /* Componente CustomButton */
     );
 }
 
-const getstyles = (variant: 'primary' | 'secondary') =>   /* Funcion que crea estilos dinamicos */
+const getstyles = (variant: 'primary' | 'secondary' | 'tertiary' ) =>   /* Funcion que crea estilos dinamicos */
     StyleSheet.create({
     container:{
-        paddingVertical: 15, /* padding arriba y abajo. */
+        paddingVertical: variant === "tertiary" ? 8 : 15, /* padding arriba y abajo. */
         alignItems: 'center', /* centra el texto dentro. */
         width: "80%",         /* el botón mide 80% del ancho de su contenedor padre. */  
         backgroundColor: /* Operador ternario Si variant es "primary" → fondo azul oscuro. Si no → fondo blanco.: */
-            variant === "primary" ? "#2e4566" : "white" ,  /*el === es una validacion que sea igual a primary el simbolo ? significa si es verdadero se coloca lo que esta dentro de "" y luego : significa si es falso*/
+            variant === "primary" ? "#2e4566" : variant === "secondary" ? "#2596be" : "transparent" ,  /*el === es una validacion que sea igual a primary el simbolo ? significa si es verdadero se coloca lo que esta dentro de "" y luego : significa si es falso*/
         borderRadius: 8,  /* Bordes redondeados */
         borderWidth: 1,   /* Borde de 1px */     
         borderColor: variant === "primary" ? "#f3f4f6" : "black",  /* Color del borde: primario: gris clarito secundario: negro */
     },
     text:{   /* Estilo de texto */
         color: 
-            variant === "primary" ? "white" : "black",  /* Color del Texto blanco en botón primario, negro en secundario */
-        fontSize: 18, /* Tamaño 18 */
-        fontWeight: "500"  /* peso medio */
+            variant === "primary" ? "white" : variant === "secondary" ? "black" : "#2e4566" ,  /* Color del Texto blanco en botón primario, negro en secundario */
+        fontSize: variant === "tertiary" ? 14 : 18, /* Tamaño 18 */
+        fontWeight: variant === "tertiary" ? "400" : "500"  /* peso medio */
     }
 });
