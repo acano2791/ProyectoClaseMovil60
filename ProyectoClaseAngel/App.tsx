@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import  CustomButton  from './src/components/CustomButton'
+import CustomImput from './src/components/CustomInput';
 
 export default function App() { /*Componente principal APP */
 const handleOnLogin = () => { /*Funcion para Login */
@@ -35,6 +36,7 @@ alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mens
         title={'¿Olvidaste tu contraseña?'} 
         onClick={handleForgotPassword}
         variant={'tertiary'}/>
+        <CustomImput/>
         </View>
       </View>
     </View>
@@ -55,10 +57,10 @@ const styles = StyleSheet.create({  /*Crea un objeto de estilos optimizados */
   },
   buttonsWrapper:{ /* Zona donde van los botoness */
     backgroundColor: 'white', /* Color del fondo donde van los botones */
-    marginTop: 30, /* Separacion de arriba */
-    height: "40%", /* Ocupa el 30% del alto de la tarjeta */
+    marginTop: 15, /* Separacion de arriba */
+    height: "30%", /* Ocupa el 30% del alto de la tarjeta */
     alignItems: "center", /* centra los botones orizontalmente */
-    justifyContent : "center"
+    justifyContent : "space-around"
     /*alignContent: "space-around",  consultar al inge cual usar si justifContent o alingnContent */
   },
 });

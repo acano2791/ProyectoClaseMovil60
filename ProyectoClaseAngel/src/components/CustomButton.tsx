@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native"; /* Ipor
 interface CustomButtonProps {  /*Define que propiedades acepta el componente */
     title: string; /* Obligatorio texto del boton */
     onClick:()=> void; /* Obligatorio funcion sin parametros que no retorna nada */
-    variant?: "primary" | "secondary" | "tertiary"; /*se le agregaga ? para indicar que la variant no es una variable obligatoria e indica que solo puede ser primaria o secundaria*/
+    variant?: "primary" | "secondary" | "tertiary"; /*es un tipo literal se le agregaga ? para indicar que la variant no es una variable obligatoria e indica que solo puede ser primaria o secundaria*/
 }
 export default function CustomButton ({ /* Componente CustomButton */
     title,
