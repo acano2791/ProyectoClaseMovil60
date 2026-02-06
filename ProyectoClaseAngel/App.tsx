@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import  CustomButton  from './src/components/CustomButton'
-import CustomImput from './src/components/CustomInput';
+import CustomInput from './src/components/CustomInput';
 
 export default function App() { /*Componente principal APP */
 const handleOnLogin = () => { /*Funcion para Login */
@@ -36,7 +36,18 @@ alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mens
         title={'¿Olvidaste tu contraseña?'} 
         onClick={handleForgotPassword}
         variant={'tertiary'}/>
-        <CustomImput/>
+        <CustomInput 
+              placeholder={'Ingrese su correo'} 
+              onChange={()=>{}} 
+              value={''} 
+              typeInput={'email'}              
+              />
+               <CustomInput 
+              placeholder={'Password'} 
+              onChange={()=>{}} 
+              value={''} 
+              typeInput={'password'}              
+              />
         </View>
       </View>
     </View>
