@@ -15,8 +15,7 @@ export default function CustomButton ({ /* Componente CustomButton */
     return(       /* Render del boton */
         <TouchableOpacity 
         onPress={onClick}  /* onPress={onClick}: cuando lo presionas, ejecuta la función que mandó el padre. */
-        style={styles.container}
-        activeOpacity={0.7}> 
+        style={styles.container}>
             <Text
                 style={styles.text}>
                 {title}

@@ -2,18 +2,22 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import  CustomButton  from './src/components/CustomButton'
 import CustomInput from './src/components/CustomInput';
+import { useState } from 'react';
 
 export default function App() { /*Componente principal APP */
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
 const handleOnLogin = () => { /*Funcion para Login */
-console.log("Prueba desde app Login"); /*Imprime en la consola el mensaje que esta entre "" - util para ver si el evento funciona */
-alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mensaje que esta entre "" */
+  console.log("Prueba desde app Login"); /*Imprime en la consola el mensaje que esta entre "" - util para ver si el evento funciona */
+ // alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mensaje que esta entre "" */
   }
 
   const handleOnLogout = () => { /*Funcion para Logout */
     console.log("Prueba desde app Logout"); /*Imprime en la consola el mensaje que esta entre "" - util para ver si el evento funciona */
     alert("Alerta logout desde app"); /*muestra una alerta en el telefono con el mensaje que esta entre "" */
   }
-
+   
   const handleForgotPassword = () => {
     console.log("Prueba desde app ForgotPassword")
     alert("Olvidé mi contraseña");
@@ -25,29 +29,35 @@ alert("Alerta login desde app"); /*muestra una alerta en el telefono con el mens
         <Text>Open up App</Text>
         <StatusBar style="auto" /> 
         <View style={styles.buttonsWrapper} >
-        <CustomButton 
-         title={'Login'} 
-          onClick={handleOnLogin}/>
-        <CustomButton 
-          title={'Salir'} 
-         onClick={handleOnLogout}
-          variant={'secondary'}/>        
-        <CustomButton 
-        title={'¿Olvidaste tu contraseña?'} 
-        onClick={handleForgotPassword}
-        variant={'tertiary'}/>
         <CustomInput 
               placeholder={'Ingrese su correo'} 
-              onChange={()=>{}} 
-              value={''} 
+              onChange={setEmail} 
+              value={email} 
               typeInput={'email'}              
               />
                <CustomInput 
               placeholder={'Password'} 
-              onChange={()=>{}} 
-              value={''} 
+              onChange={setPassword} 
+              value={password} 
               typeInput={'password'}              
               />
+               <CustomInput 
+              placeholder={'Name'} 
+              onChange={()=>{}} 
+              value={""} 
+              typeInput={'text'}              
+              />
+              <CustomButton 
+              title={'Login'} 
+              onClick={handleOnLogin}/>
+              <CustomButton 
+              title={'Salir'} 
+              onClick={handleOnLogout}
+              variant={'secondary'}/>        
+              <CustomButton 
+              title={'¿Olvidaste tu contraseña?'} 
+              onClick={handleForgotPassword}
+              variant={'tertiary'}/>
         </View>
       </View>
     </View>
