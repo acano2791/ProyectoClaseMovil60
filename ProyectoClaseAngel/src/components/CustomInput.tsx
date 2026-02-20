@@ -16,13 +16,13 @@ export default function CustomInput ({placeholder, onChange, value, typeInput}:P
     const [isSecureText, setIsSecureText] = useState(typeInput === 'password');
     const isPasswordField = typeInput === 'password'   // esto es un comportamiento condicionado
     
-    const icon : typeof MaterialIcons["name"]|undefined =
+    const icon: typeof MaterialIcons["name"]|undefined =
         typeInput === "email" ? "email" : 
-        typeInput === "password" ? "lock" : undefined
+            typeInput === "password" ? "lock" : undefined
     
-    const keyboardType: KeyboardTypeOptions 
+    const keyboardType: KeyboardTypeOptions =
     typeInput === "email" ? "email-address" :
-           typeInput === "number" ? "numeric" : "default"   
+           typeInput === "numeric" ? "numeric" : "default"   
 
     const getError = () =>{
         if (typeInput === "email" && !value.includes('@')) 
@@ -37,7 +37,7 @@ export default function CustomInput ({placeholder, onChange, value, typeInput}:P
         //wrapper
         <View style={styles.wrapper}>
             {/* //inputContainer */}
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, error && styles.inputError]}>
                 <MaterialIcons 
                     name={icon}
                     size={20}
@@ -58,7 +58,7 @@ export default function CustomInput ({placeholder, onChange, value, typeInput}:P
             </TouchableOpacity>
             }
             </View>
-           {error && <Text> {error} </Text> }
+           {error && <Text style={styles.inputError}> {error} </Text> }
         </View>
     );
 }
@@ -67,23 +67,27 @@ const styles = StyleSheet.create({
     wrapper:{
         marginBottom:10,
         width: "100%",
-        paddingHorizontal: 20,
-        backgroundColor: "blue"
+        paddingHorizontal: 25,
+        //backgroundColor: "blue"
     },
     inputContainer:{
         flexDirection:'row',
         alignItems:'center',
-        justifyContent: "space-between",
+        //justifyContent: "space-between",
         
-        backgroundColor: "red",
+        //backgroundColor: "red",
         borderWidth: 1,
         borderColor: '#ccc',
-        borderRadius: 6,
+        borderRadius: 8,
         paddingHorizontal: 13,
-        paddingVertical: 5
+        //paddingVertical: 5
     },
     input: {
         paddingHorizontal: 10,
         width: "80%"
+    },
+    inputError:{
+        borderColor: 'red',
+        color: 'red',
     }
 });
