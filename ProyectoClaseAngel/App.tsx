@@ -6,15 +6,13 @@ import { LanguageProvider } from './src/contexts/LanguageContext'
 export default function App() {
 
   return (
-
-
     <LanguageProvider>
       <AuthProvider>
         <NavigationContainer>
-          <StackNavigator />      
+          <StackNavigator />
         </NavigationContainer>
       </AuthProvider>
-    </LanguageProvider>  
-  
-)
+    </LanguageProvider>
+
+  )
 }
