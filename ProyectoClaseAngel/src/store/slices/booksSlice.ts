@@ -1,35 +1,38 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Book } from "../../types/book";
 
-interface Book {
-    name: string;
-    author: string;
-    genre: string;
-    rating: string;
-    publishDate: string;
+interface BooksState {
+    books: Book[];
+    selectedBook: Book | null;
 }
-const initialState: Book = {
-    name: "",
-    author: "",
-    genre: "",
-    rating: "",
-    publishDate: ""
+
+const initialState: BooksState = {
+    books: [],
+    selectedBook: null,
 };
 
-const bookSlice = createSlice({
-    name: 'book',
+const booksSlice = createSlice({
+    name: 'books',
     initialState,
-    reducers:{
-        setBook: (state, action: PayloadAction<Book>)=>{
-            state.name = action.payload.name,
-            state.author = action.payload.author,     
-            state.genre = action.payload.genre,
-            state.rating =action.payload.rating,
-            state.publishDate = action.payload.publishDate      
+    reducers: {
+        addBook: (state, action: PayloadAction<Book>) => {
+            state.books.push(action.payload);
         },
-        clearBook: () => initialState,
+        updateBook: (state, action: PayloadAction<Book>) => {
+            const index = state.books.findIndex(b => b.id === action.payload.id);
+            if (index !== -1) {
+                state.books[index] = action.payload;
+            }
+        },
+        deleteBook: (state, action: PayloadAction<string>) => {
+            state.books = state.books.filter(b => b.id !== action.payload);
+        },
+        selectBook: (state, action: PayloadAction<Book | null>) => {
+            state.selectedBook = action.payload;
+        },
+        clearBooks: () => initialState,
     },
 });
-//exportar actions utilizando Slice
-export const {setBook, clearBook} = bookSlice.actions;
-//exportar el reducer de book como default
-export default bookSlice.reducer;
+
+export const { addBook, updateBook, deleteBook, selectBook, clearBooks } = booksSlice.actions;
+export default booksSlice.reducer;

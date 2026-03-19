@@ -15,6 +15,8 @@ import { colors } from '../theme/colors';
 import { Book, BookStatus } from '../types/book';
 import RatingStars from '../components/RatingStars';
 import { genres } from '../data/genres';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addBook, updateBook } from '../store/slices/booksSlice';
 
 const statusOptions: { key: BookStatus; label: string; icon: any }[] = [
   { key: 'pending', label: 'Pendiente', icon: 'bookmark-outline' },
@@ -22,8 +24,12 @@ const statusOptions: { key: BookStatus; label: string; icon: any }[] = [
   { key: 'read', label: 'Leído', icon: 'check-circle' },
 ];
 
-export default function AddEditBookScreen({ route }: any) {
-  const existingBook = route.params?.book as Book | undefined;
+export default function AddEditBookScreen({ route, navigation }: any) {
+  const bookId = route.params?.bookId;
+  const dispatch = useAppDispatch();
+  const existingBook = useAppSelector((state) =>
+    state.books.books.find((b) => b.id === bookId)
+  );
   const isEditing = !!existingBook;
 
   const [title, setTitle] = useState(existingBook?.title || '');
@@ -34,6 +40,33 @@ export default function AddEditBookScreen({ route }: any) {
   const [review, setReview] = useState(existingBook?.review || '');
   const [showGenrePicker, setShowGenrePicker] = useState(false);
 
+  const handleOnSaveBook = () => {
+    if (!title.trim() || !author.trim()){
+      Alert.alert ('Campos Requeridos', 'Titulo y Autor son requeridos para guardar un libro')
+      return;
+    }
+    const bookData: Book = {
+      id: existingBook?.id || Date.now().toString(),
+      title,
+      author,
+      genre,
+      status,
+      rating,
+      review,
+      coverImage: existingBook?.coverImage || '',
+      photos: existingBook?.photos || [],
+      startDate: existingBook?.startDate,
+      endDate: existingBook?.endDate,
+      createdAt: existingBook?.createdAt || new Date().toISOString(),
+    };
+
+    if (isEditing) {
+      dispatch(updateBook(bookData));
+    } else {
+      dispatch(addBook(bookData));
+    }
+    navigation.goBack();
+  };
   return (
     <KeyboardAvoidingView
       style={styles.keyboardView}
@@ -139,7 +172,8 @@ export default function AddEditBookScreen({ route }: any) {
           <View style={styles.field}>
             <Text style={styles.label}>Calificación</Text>
             <View style={styles.ratingContainer}>
-              <RatingStars rating={rating} size={36} interactive onRate={setRating} />
+              <RatingStars rating={rating} size={36} 
+              interactive onRate={setRating} />
               {rating > 0 && (
                 <Text style={styles.ratingText}>{rating}/5</Text>
               )}
@@ -197,7 +231,7 @@ export default function AddEditBookScreen({ route }: any) {
 
           <TouchableOpacity
             style={styles.saveButton}
-            onPress={() => Alert.alert('Guardado', 'Libro guardado exitosamente (UI demo)')}
+            onPress={handleOnSaveBook}
             activeOpacity={0.8}
           >
             <MaterialIcons name="check" size={22} color={colors.white} />
